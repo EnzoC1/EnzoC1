@@ -1,0 +1,57 @@
+import numpy as np
+import tensorflow as tf
+from tensorflow import keras
+from tensorflow.keras import layers
+from tensorflow.keras.layers import Activation
+import random
+
+'''
+The following is using the example of
+a machine that must move 50 kilograms
+'''
+
+# Input masses
+mass_input = keras.Input(shape=(1,), name='input1')
+
+# Trains the inputs
+dense1 = layers.Dense(64, activation='relu', name='dense1')(mass_input)
+dense2 = layers.Dense(64, activation='relu', name='dense2')(dense1)
+dense3 = layers.Dense(64, activation='relu', name='dense3')(dense2)
+dense4 = layers.Dense(64, activation='relu', name='dense4')(dense3)
+
+# Outputs
+output = layers.Dense(1, name='output')(dense4)
+
+# Model Maker
+model = keras.Model(inputs=mass_input, outputs=output, name='model_1')
+
+# Model compile function
+model.compile(
+    optimizer=keras.optimizers.RMSprop(1e-3),
+    loss=keras.losses.BinaryCrossentropy(from_logits=True),
+    loss_weights=1,
+)
+
+train_samples = []
+train_labels = []
+
+model.summary()
+
+# Data generation
+for i in range(500):
+    # Safe object's mass
+    mass1 = random.randint(10, 20)
+    train_samples.append(mass1)
+    # Safe object's pain score
+    train_labels.append(0)
+for i in range(500):
+    # Unsafe object's mass
+    mass2 = random.randint(30, 50)
+    train_samples.append(mass2)
+    # Unsafe object's pain score
+    train_labels.append(1)
+
+# Starts training
+model.fit(train_samples, train_labels, epochs=10, batch_size=32)
+
+model.save("pain_detecting_model")
