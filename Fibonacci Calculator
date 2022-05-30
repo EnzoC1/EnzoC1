@@ -1,0 +1,16 @@
+# The Fibonacci series is [1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 987, 1597, 2584, 4181, 6765....]
+
+# What digit do you want to see
+n = int(input("\nFibonacci Digit Requested? "))
+
+# The beggining of the fibonacci series, and the index for the end of the series
+fib = [1, 1]
+i = 1
+# Adds the last two digits to find the next digit
+for i in range(n-2):
+    i += 1
+    x = fib[i-2] + fib[i-1]
+    fib.insert(i, x)
+
+# Prints out the digit they requested
+print("\nFib Digit:", fib[i], "\n")
