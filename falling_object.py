@@ -3,8 +3,6 @@
 # gravity. It was made by me, Enzo Carter.
 # Note: 9.81 m/s is Earth's gravity, the moon's gravity is 1.62 m/s
 
-import time
-
 print('''
 This is my falling object calculator, It will output where an object will be and its velocity
 at a given time. Give it different gravity values to simulate dropping something on another planet's
@@ -67,6 +65,5 @@ gravity1 = Gravity(gravity)
 force = object1.mass * gravity1.gravity_value
 
 print("\nCalculating...")
-time.sleep(3)
 
 falling(position, 0, force)
